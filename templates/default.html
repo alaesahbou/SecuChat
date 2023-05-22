@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+  <div class="top-bar">
+    <div class="logo">
+        {% block avatar %}{% endblock avatar %}
+    </div>
+    <div class="top-bar-user">
+    <h3>
+        User: 
+        {% if user.is_authenticated %}
+        <a href="{% url 'userAccount' user.id %}">
+          <em>'{{ user }}'</em>
+        </a>
+        {% endif %}
+    </h3>
+    </div>
+    {% block createRoom %}{% endblock createRoom %}
+    
+    {% if request.user.is_authenticated %}
+    <div class="logout-btn">
+      <a href="{% url 'logout' %}"><button class="btn logout">Logout</button></a>
+    </div>
+    {% else %}
+    <div class="logout-btn">
+      <a href="{% url 'signup' %}"><button class="btn signup">Sign up</button></a>
+    </div>
+    {% endif %}
+
+
+
+  </div>
+  {% block rooms %}{% endblock rooms %}
+  {% block room %}{% endblock room %}
+  {% block signup %}{% endblock signup %}
+  {% block login %}{% endblock login %}
+  {% block user %}{% endblock %}
+
+  </body>
+</html>
